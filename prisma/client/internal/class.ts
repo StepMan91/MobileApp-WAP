@@ -46,18 +46,18 @@ const config: runtime.GetPrismaClientConfig = {
   "datasourceNames": [
     "db"
   ],
-  "activeProvider": "postgresql",
+  "activeProvider": "sqlite",
   "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
-        "fromEnvVar": "DATABASE_URL",
-        "value": null
+        "fromEnvVar": null,
+        "value": "file:./dev.db"
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider = \"prisma-client\"\n  output   = \"./client\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id            String     @id @default(uuid())\n  email         String     @unique\n  password_hash String\n  created_at    DateTime   @default(now())\n  analyses      Analysis[]\n}\n\nmodel Analysis {\n  id          String   @id @default(uuid())\n  user_id     String\n  user        User     @relation(fields: [user_id], references: [id])\n  image_path  String\n  comment     String?\n  rating      Int?\n  ai_response String?\n  created_at  DateTime @default(now())\n}\n",
-  "inlineSchemaHash": "36916525ecadc5535e9f50fb5319351e027e6aad82d29bbd9db5c36209fd0210",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider = \"prisma-client\"\n  output   = \"./client\"\n}\n\ndatasource db {\n  provider = \"sqlite\"\n  url      = \"file:./dev.db\"\n}\n\nmodel User {\n  id            String     @id @default(uuid())\n  email         String     @unique\n  password_hash String\n  created_at    DateTime   @default(now())\n  analyses      Analysis[]\n}\n\nmodel Analysis {\n  id          String   @id @default(uuid())\n  user_id     String\n  user        User     @relation(fields: [user_id], references: [id])\n  image_path  String\n  comment     String?\n  rating      Int?\n  ai_response String?\n  created_at  DateTime @default(now())\n}\n",
+  "inlineSchemaHash": "cc3cecb52e396197386420faeb879e7451c4c26d2216e70605a7cf6d03e3a520",
   "copyEngine": true,
   "runtimeDataModel": {
     "models": {},
