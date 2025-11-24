@@ -7,7 +7,7 @@ export async function middleware(request: NextRequest) {
     const { pathname } = request.nextUrl;
 
     // Public routes
-    if (pathname === '/login' || pathname.startsWith('/api/auth')) {
+    if (pathname === '/login' || pathname.startsWith('/api/auth') || pathname === '/api/seed') {
         if (token) {
             // If already logged in, redirect to dashboard (optional)
             // return NextResponse.redirect(new URL('/', request.url));
